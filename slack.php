@@ -3,7 +3,7 @@
   $branch  = str_replace('refs/heads/', '', $payload['ref']);
   $text  = $payload['pusher']['name'] . ' reflects differences in repository ' . $payload['repository']['name'] . '.' . "\n";
   foreach ($payload['commits'] as $commit) {
-    $text .= $commit['url'] . "\n";
+    $text .= substr($commit['url'], 0, 43) . substr($commit['url'], 50) . "\n";
   }
 
   if(isset($_GET['webhook'])) {
