@@ -1,26 +1,52 @@
 <?php
   $payload = json_decode($_REQUEST['payload'], true);
-  $branch  = str_replace('refs/heads/', '', $payload['ref']);
-  $text  = $payload['pusher']['name'] . ' reflects differences in repository ' . $payload['repository']['name'] . '.' . "\n";
-  foreach ($payload['commits'] as $commit) {
-    $text .= substr($commit['url'], 0, 43) . substr($commit['url'], 50) . "\n";
-  }
+
+ $branch  = str_replace('refs/heads/', '', $payload['ref']);
+ $text  = 'Name: ' . $payload['pusher']['name'] . ', Repository: ' . $payload['repository']['name'] . ', Branch: ' . $branch . "\n";
+
+ foreach ($payload['commits'] as $commit) {
+
+         $text .= 'Comment: ' . $commit['message'] . "\n";
+
+         $text .= count($commit['added']) . ' added ';
+         foreach ($commit['added'] as $added) {
+                $text .= $added;
+         }
+         if (count($commit['added']) == 0) {
+                $text .= ', ';
+         }
+
+         $text .= count($commit['removed']) . ' removed ';
+         foreach ($commit['removed'] as $removed) {
+                $text .= $removed;
+         }
+         if (count($commit['removed']) == 0) {
+                $text .= ', ';
+         }
+
+         $text .= count($commit['modified']) . ' modified ';
+         foreach ($commit['modified'] as $modified) {
+                $text .= $modified;
+                $text .= ', ';
+         }
+         if (count($commit['modified']) == 0) {
+                $text .= ', ';
+         }
+
+         $text .= "\n";
+         $text .= substr($commit['url'], 0, 43) . substr($commit['url'], 50) . "\n";
+ }
 
   if(isset($_GET['webhook'])) {
     $webhook = $_GET['webhook'];
   }
 
-  #if(isset($_GET['channel'])) {
-  #  $channel = '#' . $_GET['channel'];
-  #}
 
   $post = array(
     'text'       => $text,
     'username'   => 'Incoming WebHooks'
-    #'channel'    => $channel,
   );
 
-  #$ch = curl_init('https://hooks.slack.com/services/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');
 
   $ch = curl_init($webhook);
   curl_setopt($ch, CURLOPT_POST, true);
