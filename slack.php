@@ -10,18 +10,19 @@
     $webhook = $_GET['webhook'];
   }
 
-  if(isset($_GET['channel'])) {
-    $channel = '#' . $_GET['channel'];
-  }
+  #if(isset($_GET['channel'])) {
+  #  $channel = '#' . $_GET['channel'];
+  #}
 
   $post = array(
     'text'       => $text,
-    'username'   => 'Incoming WebHooks',
-    'channel'    => $channel,
+    'username'   => 'Incoming WebHooks'
+    #'channel'    => $channel,
   );
 
-  $ch = curl_init('https://hooks.slack.com/services/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');
+  #$ch = curl_init('https://hooks.slack.com/services/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');
 
+  $ch = curl_init($webhook);
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_HTTPHEADER, array());
