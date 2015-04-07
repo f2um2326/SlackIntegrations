@@ -1,5 +1,5 @@
 <?php
-if(isset($_GET['payload'])) {
+if(isset($_REQUEST['payload'])) {
         $payload = json_decode($_REQUEST['payload'], true);
 
         $branch  = str_replace('refs/heads/', '', $payload['ref']);
