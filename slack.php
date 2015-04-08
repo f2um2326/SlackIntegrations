@@ -44,11 +44,10 @@ if(isset($_REQUEST['payload'])) {
                 $webhook = $_GET['webhook'];
         }
 
-
         $post = array(
                 'text'       => $text,
-                'username'   => 'Incoming WebHooks'
         );
+
 
         $ch = curl_init($webhook);
         curl_setopt($ch, CURLOPT_POST, true);
