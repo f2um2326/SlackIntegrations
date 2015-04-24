@@ -12,10 +12,15 @@ if(isset($_REQUEST['payload'])) {
 		$branch  = str_replace('refs/heads/', '', $payload['ref']);
 		$text .= ', Branch: ' . $branch . "\n";
 	}
+	else if(isset($payload['pull_request'])) {
+		$branch = $payload['pull_request']['head']['ref'];
+		$text .= ', Branch: ' . $branch . "\n";
+	}
 	else {
 		$text .= "\n";
 	}
 
+	# about push, commit
 	if(isset($payload['commits'])) {
 		$firewebhook = 1;
 		foreach ($payload['commits'] as $commit) {
@@ -54,6 +59,7 @@ if(isset($_REQUEST['payload'])) {
 		}
 	}
 
+	# about issue
 	if(isset($payload['issue'])) {
 		$firewebhook = 1;
 		if($payload['action'] == "opened") {
@@ -66,6 +72,7 @@ if(isset($_REQUEST['payload'])) {
 			$text .= 'Description: ' . $payload['issue']['body'] . "\n";
 			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
 		}
+		# "created" also called when added comment on pull request
 		if($payload['action'] == "created") {
 			$text .= 'Commented on issue "' . $payload['issue']['title'] . '"' . ' [state: ' . $payload['issue']['state'] . ']' . "\n";
 			$text .= 'Comment: ' . $payload['comment']['body'] . "\n";
@@ -74,6 +81,37 @@ if(isset($_REQUEST['payload'])) {
 		if($payload['action'] == "closed") {
 			$text .= 'Closed issue "' . $payload['issue']['title'] . '"' . "\n";
 			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
+		}
+	}
+
+	# about pull request
+	if(isset($payload['pull_request'])) {
+		$firewebhook = 1;
+		$pullrequest = $payload['pull_request'];
+
+		# Pull request open
+		if($payload['action'] == "opened") {
+			$text .= 'New Pull Request Opened: ' . $pullrequest['title'] . "\n";
+			$text .= 'Comment: ' . $pullrequest['body'] . "\n";
+			$text .= $pullrequest['html_url'] . "\n";
+		}
+
+		# Commit to pull request branch
+		if($payload['action'] == "synchronize") {
+			$text .= 'New Commit at ' . $pullrequest['head']['ref'] . ' by ' . $payload['sender'] . ' [Pull request branch]' . "\n";
+			$text .= $pullrequest['html_url'] . "\n";
+		}
+
+		# Pull request closed (= merged)
+		if($payload['action'] == "close") {
+			$text .= 'Closed pull request: ' . $pullrequest['title'];
+			$text .= $pullrequest['html_url'] . "\n";
+		}
+
+		# Pull request reopened
+		if($payload['action'] == "reopened") {
+			$text .= 'Reopened pull request: ' . $pullrequest['title'];
+			$text .= $pullrequest['html_url'] . "\n";
 		}
 	}
 	
