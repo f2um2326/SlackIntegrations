@@ -103,7 +103,7 @@ if(isset($_REQUEST['payload'])) {
 		}
 
 		# Pull request closed (= merged)
-		if($payload['action'] == "close") {
+		if($payload['action'] == "closed") {
 			$text .= 'Closed pull request: ' . $pullrequest['title'];
 			$text .= $pullrequest['html_url'] . "\n";
 		}
