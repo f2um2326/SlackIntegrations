@@ -98,7 +98,7 @@ if(isset($_REQUEST['payload'])) {
 
 		# Commit to pull request branch
 		if($payload['action'] == "synchronize") {
-			$text .= 'New Commit at ' . $pullrequest['head']['ref'] . ' by ' . $payload['sender'] . ' [Pull request branch]' . "\n";
+			$text .= 'New Commit at ' . $pullrequest['head']['ref'] . ' by ' . $payload['sender']['login'] . ' [Pull request branch]' . "\n";
 			$text .= $pullrequest['html_url'] . "\n";
 		}
 
