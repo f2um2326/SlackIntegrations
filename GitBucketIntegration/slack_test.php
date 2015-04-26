@@ -19,160 +19,133 @@ $json_str = '{"pusher":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.
 # Pull Request Reopened
 #$json_str = '{"action":"reopened","number":12,"repository":{"name":"SlackIntegrations","full_name":"shimba/SlackIntegrations","description":"slack.php","watchers":0,"forks":0,"private":false,"default_branch":"master","owner":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"},"forks_count":0,"watchers_coun":0,"url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations","http_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","clone_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/shimba/SlackIntegrations"},"pull_request":{"number":12,"updated_at":"2015-04-24T08:52:54Z","created_at":"2015-04-24T08:08:21Z","head":{"sha":"1faeaefb10fcab7f91668980e77fadeeee38b462","ref":"support-pullrequest","repo":{"name":"SlackIntegrations","full_name":"shimba/SlackIntegrations","description":"slack.php","watchers":0,"forks":0,"private":false,"default_branch":"master","owner":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"},"forks_count":0,"watchers_coun":0,"url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations","http_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","clone_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/shimba/SlackIntegrations"},"label":"Taiki Shimba:support-pullrequest","user":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"}},"base":{"sha":"ac4bff25f2f5cf7febec1e1d1c4599cbab4653c2","ref":"dev","repo":{"name":"SlackIntegrations","full_name":"shimba/SlackIntegrations","description":"slack.php","watchers":0,"forks":0,"private":false,"default_branch":"master","owner":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"},"forks_count":0,"watchers_coun":0,"url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations","http_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","clone_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/git/shimba/SlackIntegrations.git","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/shimba/SlackIntegrations"},"label":"Taiki Shimba:dev","user":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"}},"title":"WIP support pull request","body":"support pull request webhook","user":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"},"html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/shimba/SlackIntegrations/pull/12","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/pulls/12","commits_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/pulls/12/commits","review_comments_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/pulls/12/comments","review_comment_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/pulls/comments/{number}","comments_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/issues/12/comments","statuses_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/repos/shimba/SlackIntegrations/statuses/1faeaefb10fcab7f91668980e77fadeeee38b462"},"sender":{"login":"Taiki Shimba","email":"is0020he@ed.ritsumei.ac.jp","type":"User","site_admin":true,"created_at":"2015-01-07T14:46:14Z","url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/api/v3/users/Taiki Shimba","html_url":"http://www.ais.ics.ritsumei.ac.jp/gitbucket/Taiki Shimba"}}';
 
-$payload = json_decode($json_str, true);
-$firewebhook = 0;
-$usetext = 0;
-$userich = 0;
-$closeflag = 0;
-$text  = 'Name: ' . $payload['repository']['owner']['login'];
-$text .= ', Repository: ' . $payload['repository']['name'];
-$pretext = '[' . $payload['repository']['name'];
-if(isset($payload['ref'])) {
+function parse_commits($payload){
+	$text  = 'Name: ' . $payload['repository']['owner']['login'];
+	$text .= ', Repository: ' . $payload['repository']['name'];
 	$branch  = str_replace('refs/heads/', '', $payload['ref']);
 	$text .= ', Branch: ' . $branch . "\n";
-	$pretext .= ':' . $branch . '] ';
-}
-else if(isset($payload['pull_request'])) {
-	$branch = $payload['pull_request']['head']['ref'];
-	$text .= ', Branch: ' . $branch . "\n";
-	$pretext .= ':' . $branch . '] ';
-}
-else {
-	$text .= "\n";
-	$pretext .= '] ';
-}
-$repurl = $payload['repository']['html_url'];
-$repname = $payload['repository']['name'];
-$repnameurl = '<' . $repurl . '|' . $repname . '>';
-# about push, commit
-if(isset($payload['commits'])) {
-	$fireowebhook = 1;
-	$usetext = 1;
 	foreach ($payload['commits'] as $commit) {
 		$text .= 'Comment: ' . $commit['message'];
+
 		$text .= count($commit['added']) . ' added: ';
-		foreach ($commit['added'] as $added) {
-			$text .= $added;
-			$text .= ', ';
-		}
-		if (count($commit['added']) == 0) {
-			$text .= ', ';
-		}
+		$text .= join(", ", $commit['added']);
+		$text .= ', ';
+
 		$text .= count($commit['removed']) . ' removed: ';
-		foreach ($commit['removed'] as $removed) {
-			$text .= $removed;
-			$text .= ', ';
-		}
-		if (count($commit['removed']) == 0) {
-			$text .= ', ';
-		}
+		$text .= join(", ", $commit['removed']);
+		$text .= ', ';
+
 		$text .= count($commit['modified']) . ' modified: ';
-		foreach ($commit['modified'] as $modified) {
-			$text .= $modified;
-			$text .= ', ';
-		}
-		if (count($commit['modified']) == 0) {
-			$text .= ', ';
-		}
+		$text .= join(", ", $commit['modified']);
+		$text .= ', ';
+
 		$text .= "\n";
 		$text .= $commit['html_url'] . "\n";
 	}
+
+	return array('text' => $text,
+				 'username' => 'GitBucket Bot');
 }
-# about issue
-if(isset($payload['issue'])) {
-	$firewebhook = 1;
-	$color = '#F29513';
+
+function parse_issue($payload){
+	$issue = $payload['issue'];
+	$action = $payload['action'];
 	$sender = $payload['sender']['login'];
-	$issuetitle = $payload['issue']['title'];
-	$issueurl = $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'];
-	$issuevalue = $payload['issue']['body'];
-	$issuenumber = $payload['issue']['number'];
-	$issuetitleurl = '<' . $issueurl . '|#' . $issuenumber . ' ' . $issuetitle . '>';
-	$title = '#' . $issuenumber . ' ' . $issuetitle;
-	$titlelink = $issueurl;
-	# opened
-	if($payload['action'] == "opened") {
-		$userich = 1;
-		$fallback = $pretext . 'Issue created by ' . $sender;
-		$pretext = $pretext . 'Issue created by ' . $sender;
-		$value = $issuevalue;
-	}
-	# reopened
-	if($payload['action'] == "reopened") {
-		$userich = 1;
-		$fallback = $pretext . 'Issue reopened by ' . $sender;
-		$pretext = $pretext . 'Issue reopened by ' . $sender;
-		$value = $issuevalue;
-	}
-	# "created" also called when added comment on pull request
-	if($payload['action'] == "created") {
-		$userich = 1;
-		$fallback = $pretext . 'Issue commented by ' . $sender;
-		$pretext = $pretext . 'Issue commented by ' . $sender;
-		$value = $payload['comment']['body'];
-	}
+	$body = $issue['body'];
+	$number = $issue['number'];
+	$title = $issue['title'];
+	$title_link = $payload['repository']['html_url'] . "/issues/" . $number;
+
+	$pretext = '[' . $payload['repository']['name'] . '] ';
+
+	$attachment = array();
 	# closed
-	if($payload['action'] == "closed") {
-		$closeflag = 1;
-		$fallback = $pretext . 'Issue closed: ' . $issuetitle . ' by ' . $sender;
-		$value = $pretext . 'Issue closed: ' . $issuetitleurl . ' by ' . $sender;
+	if($action == "closed") {
+		$link = '<' . $title_link . '|#' . $number . ' ' . $title . '>';
+		$text = $pretext . 'Issue closed: ' . $link . ' by ' . $sender;
+		$pretext .= 'Issue closed: ' . $title . ' by ' . $sender;
 	}
+	else{
+		# opened
+		if($action == "opened") {
+			$pretext .= 'Issue created by ' . $sender;
+			$text = $body;
+		}
+		# reopened
+		else if($action == "reopened") {
+			$pretext .= 'Issue reopened by ' . $sender;
+			$text = $body;
+		}
+		# "created" also called when added comment on pull request
+		else if($action == "created") {
+			$pretext .= 'Issue commented by ' . $sender;
+			$text = $payload['comment']['body'];
+		}	
+
+		$attachment['pretext'] = $pretext;
+		$attachment['title'] = '#' . $number . ' ' . $title;
+		$attachment['title_link'] = $title_link;
+		$attachment['color'] = '#F29513';
+	}
+
+	$attachment["fallback"] = $pretext;
+	$attachment["text"] = $text;
+
+	return array('attachments' => [$attachment],
+				 'username' => 'GitBucket Bot');
 }
-# about pull request
-if(isset($payload['pull_request'])) {
-	$firewebhook = 1;
-	$usetext = 1;
-	$pullrequest = $payload['pull_request'];
+
+function parse_pull_request($payload){
+	$pull_request = $payload['pull_request'];
+	$action = $payload['action'];
+	$title = $pull_request['title'];
+
+	$text  = 'Name: ' . $payload['repository']['owner']['login'];
+	$text .= ', Repository: ' . $payload['repository']['name'];
+	$branch = $pull_request['head']['ref'];
+	$text .= ', Branch: ' . $branch . "\n";
+
 	# Pull request open
-	if($payload['action'] == "opened") {
-		$text .= 'New Pull Request Opened: ' . $pullrequest['title'] . "\n";
-		$text .= 'Comment: ' . $pullrequest['body'] . "\n";
-		$text .= $pullrequest['html_url'] . "\n";
+	if($action == "opened") {
+		$text .= 'New Pull Request Opened: ' . $title . "\n";
+		$text .= 'Comment: ' . $pull_request['body'] . "\n";
 	}
 	# Commit to pull request branch
-	if($payload['action'] == "synchronize") {
-		$text .= 'New Commit at ' . $pullrequest['head']['ref'] . ' by ' . $payload['sender']['login'] . ' [Pull request branch]' . "\n";
-		$text .= $pullrequest['html_url'] . "\n";
+	if($action == "synchronize") {
+		$text .= 'New Commit at ' . $branch . ' by ' . $payload['sender']['login'] . ' [Pull request branch]' . "\n";
 	}
 	# Pull request closed (= merged.)
-	if($payload['action'] == "closed") {
-		$text .= 'Closed pull request: ' . $pullrequest['title'] . "\n";
-		$text .= $pullrequest['html_url'] . "\n";
+	if($action == "closed") {
+		$text .= 'Closed pull request: ' . $title . "\n";
 	}
 	# Pull request reopened
-	if($payload['action'] == "reopened") {
-		$text .= 'Reopened pull request: ' . $pullrequest['title'] . "\n";
-		$text .= $pullrequest['html_url'] . "\n";
+	if($action == "reopened") {
+		$text .= 'Reopened pull request: ' . $title . "\n";
 	}
+	$text .= $pull_request['html_url'] . "\n";
+
+	return array('text' => $text,
+				 'username' => 'GitBucket Bot');
 }
-if( $usetext == 1 ) {
-	$post = array(
-		'text'		=> $text,
-		'username'	=>	'GitBucket Bot'
-	);
+
+$payload = json_decode($json_str, true);
+
+# about push, commit
+if(isset($payload['commits'])) {
+	$fireowebhook = 1;
+	$post = parse_commits($payload);
 }
-if( $userich == 1 ) {
-	$post = array(
-		'attachments'       => [array(
-			'fallback'	=>	$fallback,
-			'pretext'	=>	$pretext,
-			'title'		=>	$title,
-			'title_link'	=>	$titlelink,
-			'text'		=>	$value,
-			'color'		=>	$color
-		)],
-		'username'	=>	'GitBucket Bot'
-	);
+# about issue
+else if(isset($payload['issue'])) {
+	$firewebhook = 1;
+	$post = parse_issue($payload);
 }
-if( $closeflag == 1 ) {
-	$post = array(
-		'attachments'       => [array(
-			'fallback'	=>	$fallback,
-			'text'		=>	$value
-		)],
-		'username'	=>	'GitBucket Bot'
-	);
+# about pull request
+else if(isset($payload['pull_request'])) {
+	$firewebhook = 1;
+	$post = parse_pull_request($payload);
 }
+
 if( $firewebhook == 1) {
 	$webhook = 'https://hooks.slack.com/services/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';
 	$ch = curl_init($webhook);
