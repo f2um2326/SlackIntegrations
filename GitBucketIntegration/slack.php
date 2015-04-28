@@ -75,35 +75,55 @@ function parse_issue($payload){
 }
 
 function parse_pull_request($payload){
+	$repository = $payload['repository'];
 	$pull_request = $payload['pull_request'];
 	$action = $payload['action'];
+	$sender_name = $payload['sender']['login'];
+	$number = $pull_request['number'];
 	$title = $pull_request['title'];
+	$html_url = $pull_request['html_url'];
+	$body = $pull_request['body'];
+	$color = '#6CC644';
 
-	$text  = 'Name: ' . $payload['repository']['owner']['login'];
-	$text .= ', Repository: ' . $payload['repository']['name'];
-	$branch = $pull_request['head']['ref'];
-	$text .= ', Branch: ' . $branch . "\n";
+	$pretext_prefix = sprintf("[%s] Pull request", $repository['full_name']);
+	$title_text = sprintf("#%d %s", $number, $title);
+	$attachment = array();
 
-	# Pull request open
-	if($action == "opened") {
-		$text .= 'New Pull Request Opened: ' . $title . "\n";
-		$text .= 'Comment: ' . $pull_request['body'] . "\n";
-	}
 	# Commit to pull request branch
 	if($action == "synchronize") {
-		$text .= 'New Commit at ' . $branch . ' by ' . $payload['sender']['login'] . ' [Pull request branch]' . "\n";
+		# Nothing to do
+		return null;
 	}
-	# Pull request closed (= merged.)
-	if($action == "closed") {
-		$text .= 'Closed pull request: ' . $title . "\n";
+	# Pull request open
+	else if($action == "opened") {
+		$pretext = sprintf("%s submitted by %s",
+						   $pretext_prefix, $sender_name);
+		$text = $body;
+		$fallback = $pretext; 
+		$attachment['pretext'] = $pretext;
+		$attachment['title'] = $title_text;
+		$attachment['title_link'] = $html_url;
+		$attachment['color'] = $color;
 	}
-	# Pull request reopened
-	if($action == "reopened") {
-		$text .= 'Reopened pull request: ' . $title . "\n";
+	else{
+		$linked_title_text = sprintf("&lt;%s|%s&gt;", $html_url, $title_text);
+		# Pull request closed (= merged.)
+		if($action == "closed") {
+			$text = sprintf("%s closed: %s by %s", $pretext_prefix,
+							$linked_title_text, $sender_name);
+		}
+		# Pull request reopened
+		else if($action == "reopened") {
+			$text = sprintf("%s re-opened: %s by %s", $pretext_prefix,
+							$linked_title_text, $sender_name);
+			$attachment['color'] = $color;
+		}
+		$fallback = $text;
 	}
-	$text .= $pull_request['html_url'] . "\n";
+	$attachment['fallback'] = $fallback;
+	$attachment["text"] = $text;
 
-	return array('text' => $text);
+	return array('attachments' => [$attachment]);
 }
 
 function main(){
@@ -128,9 +148,13 @@ function main(){
 	else if(isset($payload['pull_request'])) {
 		$firewebhook = 1;
 		$post = parse_pull_request($payload);
+		if($post == null){
+			return 0;
+		}
 	}
 
-	$post['username'] ='GitBucket Bot';
+	$post['username'] ='GitBucket Bot (heroku)';
+	$post['icon_emoji'] = ':skull:';
 
 	if( $firewebhook == 1) {
 		if(isset($_GET['webhook'])) {
