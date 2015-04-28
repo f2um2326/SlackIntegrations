@@ -109,7 +109,7 @@ function parse_pull_request($payload){
 				 'username' => 'GitBucket Bot');
 }
 
-function main($_REQUEST){
+function main(){
 	# do nothing if $_REQUEST['payload'] is empty
 	if(empty($_REQUEST['payload'])){
 		return 0;
@@ -148,6 +148,6 @@ function main($_REQUEST){
 	}
 }
 
-main($_REQUEST['payload']);
+main();
 
 ?>
