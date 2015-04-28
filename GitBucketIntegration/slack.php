@@ -24,8 +24,7 @@ function parse_commits($payload){
 		$text .= $commit['html_url'] . "\n";
 	}
 
-	return array('text' => $text,
-				 'username' => 'GitBucket Bot');
+	return array('text' => $text);
 }
 
 function parse_issue($payload){
@@ -72,8 +71,7 @@ function parse_issue($payload){
 	$attachment["fallback"] = $pretext;
 	$attachment["text"] = $text;
 
-	return array('attachments' => [$attachment],
-				 'username' => 'GitBucket Bot');
+	return array('attachments' => [$attachment]);
 }
 
 function parse_pull_request($payload){
@@ -105,8 +103,7 @@ function parse_pull_request($payload){
 	}
 	$text .= $pull_request['html_url'] . "\n";
 
-	return array('text' => $text,
-				 'username' => 'GitBucket Bot');
+	return array('text' => $text);
 }
 
 function main(){
@@ -132,6 +129,8 @@ function main(){
 		$firewebhook = 1;
 		$post = parse_pull_request($payload);
 	}
+
+	$post['username'] ='GitBucket Bot';
 
 	if( $firewebhook == 1) {
 		if(isset($_GET['webhook'])) {
