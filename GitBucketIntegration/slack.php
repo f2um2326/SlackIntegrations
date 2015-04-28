@@ -1,28 +1,41 @@
 <?php
 if(isset($_REQUEST['payload'])) {
-	$firewebhook = 0;
-
 	$payload = json_decode($_REQUEST['payload'], true);
+
+	$firewebhook = 0;
+	$usetext = 0;
+	$userich = 0;
+	$closeflag = 0;
 
 
 	$text  = 'Name: ' . $payload['repository']['owner']['login'];
 	$text .= ', Repository: ' . $payload['repository']['name'];
 
+	$pretext = '[' . $payload['repository']['name'];
+
 	if(isset($payload['ref'])) {
 		$branch  = str_replace('refs/heads/', '', $payload['ref']);
 		$text .= ', Branch: ' . $branch . "\n";
+		$pretext .= ':' . $branch . '] ';
 	}
 	else if(isset($payload['pull_request'])) {
 		$branch = $payload['pull_request']['head']['ref'];
 		$text .= ', Branch: ' . $branch . "\n";
+		$pretext .= ':' . $branch . '] ';
 	}
 	else {
 		$text .= "\n";
+		$pretext .= '] ';
 	}
+
+	$repurl = $payload['repository']['html_url'];
+	$repname = $payload['repository']['name'];
+	$repnameurl = '<' . $repurl . '|' . $repname . '>';
 
 	# about push, commit
 	if(isset($payload['commits'])) {
 		$firewebhook = 1;
+		$usetext = 1;
 		foreach ($payload['commits'] as $commit) {
 
 			$text .= 'Comment: ' . $commit['message'];
@@ -62,31 +75,54 @@ if(isset($_REQUEST['payload'])) {
 	# about issue
 	if(isset($payload['issue'])) {
 		$firewebhook = 1;
+		$color = '#F29513';
+		$sender = $payload['sender']['login'];
+
+		$issuetitle = $payload['issue']['title'];
+		$issueurl = $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'];
+		$issuevalue = $payload['issue']['body'];
+		$issuenumber = $payload['issue']['number'];
+		$issuetitleurl = '<' . $issueurl . '|#' . $issuenumber . ' ' . $issuetitle . '>';
+
+		$title = '#' . $issuenumber . ' ' . $issuetitle;
+		$titlelink = $issueurl;
+
+		# opened
 		if($payload['action'] == "opened") {
-			$text .= 'Opened issue "' . $payload['issue']['title'] . '"' . "\n";
-			$text .= 'Description: ' . $payload['issue']['body'] . "\n";
-			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
+			$userich = 1;
+			$fallback = $pretext . 'Issue created by ' . $sender;
+			$pretext = $pretext . 'Issue created by ' . $sender;
+			$value = $issuevalue;
 		}
+
+		# reopened
 		if($payload['action'] == "reopened") {
-			$text .= 'Reopened issue "' . $payload['issue']['title'] . '"' . "\n";
-			$text .= 'Description: ' . $payload['issue']['body'] . "\n";
-			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
+			$userich = 1;
+			$fallback = $pretext . 'Issue reopened by ' . $sender;
+			$pretext = $pretext . 'Issue reopened by ' . $sender;
+			$value = $issuevalue;
 		}
+
 		# "created" also called when added comment on pull request
 		if($payload['action'] == "created") {
-			$text .= 'Commented on issue "' . $payload['issue']['title'] . '"' . ' [state: ' . $payload['issue']['state'] . ']' . "\n";
-			$text .= 'Comment: ' . $payload['comment']['body'] . "\n";
-			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
+			$userich = 1;
+			$fallback = $pretext . 'Issue commented by ' . $sender;
+			$pretext = $pretext . 'Issue commented by ' . $sender;
+			$value = $payload['comment']['body'];
 		}
+
+		# closed
 		if($payload['action'] == "closed") {
-			$text .= 'Closed issue "' . $payload['issue']['title'] . '"' . "\n";
-			$text .= $payload['repository']['html_url'] . "/issues/" . $payload['issue']['number'] . "\n";
+			$closeflag = 1;
+			$fallback = $pretext . 'Issue closed: ' . $issuetitle . ' by ' . $sender;
+			$value = $pretext . 'Issue closed: ' . $issuetitleurl . ' by ' . $sender;
 		}
 	}
 
 	# about pull request
 	if(isset($payload['pull_request'])) {
 		$firewebhook = 1;
+		$usetext = 1;
 		$pullrequest = $payload['pull_request'];
 
 		# Pull request open
@@ -114,17 +150,42 @@ if(isset($_REQUEST['payload'])) {
 			$text .= $pullrequest['html_url'] . "\n";
 		}
 	}
+
+	if( $usetext == 1 ) {
+		$post = array(
+			'text'		=> $text,
+			'username'	=>	'GitBucket Bot'
+		);
+	}
 	
+	if( $userich == 1 ) {
+		$post = array(
+			'attachments'       => [array(
+				'fallback'	=>	$fallback,
+				'pretext'	=>	$pretext,
+				'title'		=>	$title,
+				'title_link'	=>	$titlelink,
+				'text'		=>	$value,
+				'color'		=>	$color
+			)],
+			'username'	=>	'GitBucket Bot'
+		);
+	}
+
+	if( $closeflag == 1 ) {
+		$post = array(
+			'attachments'       => [array(
+				'fallback'	=>	$fallback,
+				'text'		=>	$value
+			)],
+			'username'	=>	'GitBucket Bot'
+		);
+	}
+
 	if( $firewebhook == 1) {
 		if(isset($_GET['webhook'])) {
 			$webhook = $_GET['webhook'];
 		}
-
-
-		$post = array(
-			'text'       => $text,
-		);
-
 
 		$ch = curl_init($webhook);
 		curl_setopt($ch, CURLOPT_POST, true);
