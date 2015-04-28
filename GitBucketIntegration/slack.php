@@ -134,7 +134,10 @@ function main($_REQUEST){
 	}
 
 	if( $firewebhook == 1) {
-		$webhook = 'https://hooks.slack.com/services/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';
+		if(isset($_GET['webhook'])) {
+			$webhook = $_GET['webhook'];
+		}
+
 		$ch = curl_init($webhook);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
