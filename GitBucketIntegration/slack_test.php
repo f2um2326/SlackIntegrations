@@ -132,7 +132,7 @@ $payload = json_decode($json_str, true);
 
 # about push, commit
 if(isset($payload['commits'])) {
-	$fireowebhook = 1;
+	$firewebhook = 1;
 	$post = parse_commits($payload);
 }
 # about issue
