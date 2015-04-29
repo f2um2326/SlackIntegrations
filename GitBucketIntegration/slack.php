@@ -106,7 +106,7 @@ function parse_pull_request($payload){
 		$attachment['color'] = $color;
 	}
 	else{
-		$linked_title_text = sprintf("&lt;%s|%s&gt;", $html_url, $title_text);
+		$linked_title_text = "<" . sprintf("%s|%s", $html_url, $title_text) . ">";
 		# Pull request closed (= merged.)
 		if($action == "closed") {
 			$text = sprintf("%s closed: %s by %s", $pretext_prefix,
