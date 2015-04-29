@@ -1,30 +1,55 @@
 <?php
 
 function parse_commits($payload){
-	$text  = 'Name: ' . $payload['repository']['owner']['login'];
-	$text .= ', Repository: ' . $payload['repository']['name'];
+	$repository = $payload['repository'];
+	$commits = $payload['commits'];
+	$color = '#4183C4';
+
+	$repo_full_name = $repository['full_name'];
 	$branch  = str_replace('refs/heads/', '', $payload['ref']);
-	$text .= ', Branch: ' . $branch . "\n";
-	foreach ($payload['commits'] as $commit) {
-		$text .= 'Comment: ' . $commit['message'];
 
-		$text .= count($commit['added']) . ' added: ';
-		$text .= join(", ", $commit['added']);
-		$text .= ', ';
 
-		$text .= count($commit['removed']) . ' removed: ';
-		$text .= join(", ", $commit['removed']);
-		$text .= ', ';
-
-		$text .= count($commit['modified']) . ' modified: ';
-		$text .= join(", ", $commit['modified']);
-		$text .= ', ';
-
-		$text .= "\n";
-		$text .= $commit['html_url'] . "\n";
+	$num_commits = count($commits);
+	$committer_ids = [];
+	foreach($commits as $commit){
+		array_push($committer_ids, $commit['committer']['name']);
 	}
 
-	return array('text' => $text);
+	# make "pretext"
+	$pretext_prefix = sprintf("[%s:%s]", $repo_full_name, $branch);
+	$num_unique_ids = count(array_unique($committer_ids));
+	if($num_unique_ids == 1){
+		$committer_id = $committer_ids[0];
+		$pretext_body = sprintf("%d new commit", $num_commits) .
+						($num_commits > 1 ? "s" : "") .
+						sprintf(" by %s:", $committer_id);
+	}
+	else{
+		$pretext_body = sprintf("%d new commits:", $num_commits);	
+	}
+	$pretext = sprintf("%s %s", $pretext_prefix, $pretext_body);
+
+	# make "fields"
+	$fields = [];
+	foreach ($commits as $commit) {
+		$commit_url = $commit['html_url'];
+		$commit_id_short = substr($commit['id'], 0, 7); # first 7 letters of the hash value
+		$commit_link = "<" . sprintf("%s|%s", $commit_url, $commit_id_short) . ">";
+		$commit_message = $commit['message'];
+		$message_1st_line = substr($commit_message, 0, strpos($commit_message, "\n"));
+		$committer_id = $commit['committer']['name'];
+		$value = sprintf("%s: %s - %s", $commit_link, $message_1st_line, $committer_id);
+		$field = array('value' => $value, 'short' => false);
+		array_push($fields, $field);
+	}
+
+	$attachment = array();
+	$attachment["fallback"] = $pretext;
+	$attachment['pretext'] = $pretext;
+	$attachment['fields'] = $fields;
+	$attachment['color'] = $color;
+		
+	return array('attachments' => [$attachment]);
 }
 
 function parse_issue($payload){
