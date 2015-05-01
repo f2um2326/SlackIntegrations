@@ -178,8 +178,8 @@ function main(){
 		}
 	}
 
-	$post['username'] ='GitBucket Bot (heroku)';
-	$post['icon_emoji'] = ':skull:';
+	$post['username'] ='GitBucket Bot';
+	$post['icon_emoji'] = ':gitbucket:';
 
 	if( $firewebhook == 1) {
 		if(isset($_GET['webhook'])) {
